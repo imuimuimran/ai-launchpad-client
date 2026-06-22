@@ -1,6 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
+// import { ReactNode } from "react";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import QueryProvider from "./query-provider";
 import { ThemeProvider } from "./theme-provider";
@@ -9,14 +10,16 @@ import SonnerProvider from "./sonner-provider";
 export default function Providers({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider>
-      <QueryProvider>
-        {children}
-        <SonnerProvider />
-      </QueryProvider>
-    </ThemeProvider>
+    <ClerkProvider>
+      <ThemeProvider>
+        <QueryProvider>
+          {children}
+          <SonnerProvider />
+        </QueryProvider>
+      </ThemeProvider>
+    </ClerkProvider>
   );
 }
