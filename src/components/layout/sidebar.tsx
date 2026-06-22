@@ -14,10 +14,18 @@ export default function Sidebar() {
   const role = "user";
   // later from Clerk
 
+  // const links =
+  //   role === "admin"
+  //     ? adminSidebarLinks
+  //     : userSidebarLinks;
+
+  // src/components/layout/sidebar.tsx
+
   const links =
-    role === "admin"
+    (role as string) === "admin"
       ? adminSidebarLinks
       : userSidebarLinks;
+
 
   return (
     <aside className="w-64 border-r">
@@ -32,11 +40,10 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg p-2 ${
-                active
+              className={`flex items-center gap-3 rounded-lg p-2 ${active
                   ? "bg-muted"
                   : ""
-              }`}
+                }`}
             >
               <Icon className="h-5 w-5" />
               {item.label}
