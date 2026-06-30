@@ -1,20 +1,48 @@
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { useQuery } from "@tanstack/react-query";
 
-import { axiosInstance } from "@/services/axios";
+// import { axiosInstance } from "@/services/axios";
+import api from "@/lib/axios";
+
+// export function useCurrentUser() {
+//   const { user } = useUser();
+
+//   return useQuery({
+//     queryKey: ["current-user", user?.id],
+
+//     enabled: !!user,
+
+//     queryFn: async () => {
+//       const res = await axiosInstance.get(`/users/${user?.id}`);
+
+//       return res.data.data;
+//     },
+//   });
+// }
+
 
 export function useCurrentUser() {
-  const { user } = useUser();
+  const { getToken, isSignedIn } = useAuth();
 
   return useQuery({
-    queryKey: ["current-user", user?.id],
+    queryKey: ["current-user"],
 
-    enabled: !!user,
+    enabled: !!isSignedIn,
 
     queryFn: async () => {
-      const res = await axiosInstance.get(`/users/${user?.id}`);
+      const token = await getToken();
 
-      return res.data.data;
+      const response = await api.get(
+        "/webhooks/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data.data;
     },
   });
 }

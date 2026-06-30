@@ -1,10 +1,16 @@
-// src/app/dashboard/page.tsx
-import React from 'react';
+"use client";
 
-export default function DashboardPage() {
+import RoleGuard from "@/components/auth/role-guard";
+
+export default function GeneralDashboardPage() {
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <RoleGuard roles={["user", "manager", "admin"]}>
+      <div className="p-6">
+        <h1 className="text-2xl font-bold">My Personal Workspace</h1>
+        <p className="text-muted-foreground">
+          This content is safe from external unauthenticated traffic.
+        </p>
+      </div>
+    </RoleGuard>
   );
 }

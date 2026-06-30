@@ -6,6 +6,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 
 import QueryProvider from "./query-provider";
 import { ThemeProvider } from "./theme-provider";
+import { UserProvider } from '@/context/user-context';
 import SonnerProvider from "./sonner-provider";
 
 export default function Providers({
@@ -17,8 +18,10 @@ export default function Providers({
     <ClerkProvider>
       <ThemeProvider>
         <QueryProvider>
-          {children}
-          <SonnerProvider />
+          <UserProvider>
+            {children}
+            <SonnerProvider />
+          </UserProvider>
         </QueryProvider>
       </ThemeProvider>
     </ClerkProvider>
