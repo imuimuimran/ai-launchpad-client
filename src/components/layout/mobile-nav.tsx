@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { publicNavLinks } from "@/constants/navigation";
+import { userSidebarLinks } from "@/constants/navigation";
 
 export default function MobileNav() {
   return (
@@ -20,7 +20,7 @@ export default function MobileNav() {
 
       <SheetContent side="left">
         <div className="mt-8 flex flex-col gap-4">
-          {publicNavLinks.map((item) => (
+          {userSidebarLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}

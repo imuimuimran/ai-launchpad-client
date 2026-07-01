@@ -1,7 +1,3 @@
-// {/* <RoleGuard roles={["admin"]}>
-//   <AdminPage />
-// </RoleGuard> */}
-
 "use client";
 
 import { ReactNode } from "react";

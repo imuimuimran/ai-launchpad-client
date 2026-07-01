@@ -1,19 +1,9 @@
-// export default function HomePage() {
-//   return (
-//     <div>
-//       <h1>AI LaunchPad</h1>
-//     </div>
-//   );
-// }
+"use client";
 
-
-
-"use client"; // 1. Crucial: This tells Next.js this file runs in the browser
-
-import { useCurrentUser } from "@/hooks/useCurrentUser"; // 2. Import your custom hook
+import { useCurrentUser } from "@/hooks/useCurrentUser"; 
 
 export default function HomePage() {
-  // 3. Call the hook to pull user records from MongoDB
+  
   const { data, isLoading } = useCurrentUser();
 
   if (isLoading) {

@@ -11,7 +11,7 @@ export default function AdminDashboardPage() {
           Welcome to the control center. Only accounts tagged with an admin role in MongoDB can see this text.
         </p>
         
-        {/* Your complex admin metrics widgets, user management tables, etc. go here */}
+        {/* complex admin metrics widgets, user management tables, etc. go here */}
       </div>
     </RoleGuard>
   );

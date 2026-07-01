@@ -2,56 +2,59 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { userSidebarLinks, adminSidebarLinks } from "@/constants/navigation";
-// 1. Import your user context hook
-import { useUserContext } from "@/context/user-context"; 
+import { cn } from "@/lib/utils";
+import { useUserContext } from "@/context/user-context";
+import {
+  userSidebarLinks,
+  managerSidebarLinks,
+  adminSidebarLinks,
+} from "@/constants/navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
-  
-  // 2. Fetch the cached user database records and loading state
   const { data: user, isLoading } = useUserContext();
 
-  // 3. Dynamically swap sidebar menus based on the verified role from MongoDB
-  const links =
-    user?.role === "admin" 
-      ? adminSidebarLinks 
-      : userSidebarLinks;
-
-  // 4. Handle a subtle layout state while your authentication checks clear
+  // Loading State
   if (isLoading) {
     return (
-      <aside className="w-64 border-r animate-pulse">
-        <div className="p-4 space-y-4">
-          <div className="h-10 bg-muted rounded-lg w-full" />
-          <div className="h-10 bg-muted rounded-lg w-full" />
-          <div className="h-10 bg-muted rounded-lg w-full" />
-          <div className="h-10 bg-muted rounded-lg w-full" />
-        </div>
+      <aside className="w-64 border-r p-6">
+        Loading...
       </aside>
     );
   }
 
-  // 5. If the user isn't logged in at all, hide the sidebar completely 
+  // If the user isn't logged in at all, do not render the sidebar
   if (!user) return null;
 
+  // Determine Links using the recommended role-to-links map
+  const sidebarLinks = {
+    user: userSidebarLinks,
+    manager: managerSidebarLinks,
+    admin: adminSidebarLinks,
+  } as const;
+
+  const links = sidebarLinks[user.role as keyof typeof sidebarLinks] ?? userSidebarLinks;
+
   return (
-    <aside className="w-64 border-r min-h-[calc(100vh-4rem)]">
-      <nav className="p-4 space-y-2">
-        {links.map((item) => {
-          const Icon = item.icon;
-          const active = pathname === item.href;
+    <aside className="w-64 border-r min-h-[calc(100vh-4rem)] p-4">
+      <nav className="space-y-2">
+        {links.map((link) => {
+          const Icon = link.icon;
+          const isActive = pathname === link.href;
 
           return (
             <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 rounded-lg p-2 text-sm font-medium transition-colors hover:bg-muted/50 ${
-                active ? "bg-muted text-foreground" : "text-muted-foreground"
-              }`}
+              key={link.href}
+              href={link.href}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-4 py-2 transition-colors",
+                isActive
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-muted text-muted-foreground"
+              )}
             >
               <Icon className="h-5 w-5" />
-              {item.label}
+              <span>{link.label}</span>
             </Link>
           );
         })}

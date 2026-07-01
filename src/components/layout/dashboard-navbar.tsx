@@ -1,19 +1,49 @@
+"use client";
+
+import { Bell } from "lucide-react";
+
 import ThemeToggle from "../common/theme-toggle";
+
 import ProfileDropdown from "./profile-dropdown";
+
+import { Button } from "@/components/ui/button";
 
 export default function DashboardNavbar() {
   return (
-    <header className="flex h-16 items-center justify-between border-b px-6">
-      <h1 className="font-semibold">
+    <header
+      className="
+      flex
+      items-center
+      justify-between
+      border-b
+      px-6
+      py-4
+      "
+    >
+      <h1
+        className="
+        text-2xl
+        font-bold
+        "
+      >
         Dashboard
       </h1>
 
-      <div className="flex items-center gap-4">
+      <div
+        className="
+        flex
+        items-center
+        gap-3
+        "
+      >
         <ThemeToggle />
 
-        <button>
-          Notifications
-        </button>
+        <Button
+          variant="ghost"
+          size="icon"
+        >
+          <Bell className="h-5 w-5" />
+        </Button>
 
         <ProfileDropdown />
       </div>

@@ -1,38 +1,3 @@
-// "use client";
-
-// import {
-//   createContext,
-//   useContext,
-// } from "react";
-
-// import { useCurrentUser } from "@/hooks/useCurrentUser";
-
-// const UserContext =
-//   createContext<any>(null);
-
-// export function UserProvider({
-//   children,
-// }: {
-//   children: React.ReactNode;
-// }) {
-//   const query =
-//     useCurrentUser();
-
-//   return (
-//     <UserContext.Provider
-//       value={query}
-//     >
-//       {children}
-//     </UserContext.Provider>
-//   );
-// }
-
-// export function useUserContext() {
-//   return useContext(UserContext);
-// }
-
-
-
 "use client";
 
 import { createContext, useContext } from "react";

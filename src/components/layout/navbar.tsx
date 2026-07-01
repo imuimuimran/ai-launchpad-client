@@ -1,14 +1,14 @@
-"use client"; // 1. Crucial: Context hooks must be used in a Client Component
+"use client"; 
 
 import Link from "next/link";
 import ThemeToggle from "../common/theme-toggle";
 import MobileNav from "./mobile-nav";
-import { publicNavLinks } from "@/constants/navigation";
-// 2. Import your user context hook
+import { userSidebarLinks } from "@/constants/navigation";
+
 import { useUserContext } from "@/context/user-context"; 
 
 export default function Navbar() {
-  // 3. Pull the cached user profile data and loading status
+  
   const { data: user, isLoading } = useUserContext();
 
   return (
@@ -21,7 +21,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6">
-          {publicNavLinks.map((item) => (
+          {userSidebarLinks.map((item) => (
             <Link key={item.href} href={item.href} className="text-sm font-medium hover:underline">
               {item.label}
             </Link>
@@ -29,7 +29,7 @@ export default function Navbar() {
           
           {/* 4. Role-based Navigation: Show Admin Panel link only to admins */}
           {user?.role === "admin" && (
-            <Link href="/admin/dashboard" className="text-sm font-semibold text-red-500 hover:underline">
+            <Link href="/dashboard/admin" className="text-sm font-semibold text-red-500 hover:underline">
               Admin Panel
             </Link>
           )}
